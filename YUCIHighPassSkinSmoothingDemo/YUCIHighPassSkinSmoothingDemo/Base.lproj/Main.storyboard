@@ -159,7 +159,7 @@
                     <navigationItem key="navigationItem" title="Default Context" id="iSa-rv-bQu">
                         <barButtonItem key="rightBarButtonItem" title="Choose Image" id="5o6-vC-Maw">
                             <connections>
-                                <action selector="chooseImageBarButtonItemTapped:" destination="BPH-5N-Fqj" id="maj-L0-V2z"/>
+                                <action selector="chooseImageBarButtonItemTappedWithSender:" destination="BPH-5N-Fqj" id="35s-oY-Nwy"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
