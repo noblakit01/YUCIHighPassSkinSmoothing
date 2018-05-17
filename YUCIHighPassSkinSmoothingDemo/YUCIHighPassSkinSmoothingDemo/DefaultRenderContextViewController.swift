@@ -9,7 +9,7 @@
 import UIKit
 import YUCIHighPassSkinSmoothing
 
-class DefaultRenderContextViewController: UIViewController,UIImagePickerControllerDelegate,UINavigationControllerDelegate {
+class DefaultRenderContextViewController: UIViewController {
     
     let context = CIContext(options: [kCIContextWorkingColorSpace: CGColorSpaceCreateDeviceRGB()])
     let filter = YUCIHighPassSkinSmoothing()
@@ -31,16 +31,6 @@ class DefaultRenderContextViewController: UIViewController,UIImagePickerControll
         imagePickerController.view.backgroundColor = UIColor.white
         imagePickerController.delegate = self
         self.present(imagePickerController, animated: true, completion: nil)
-    }
-    
-    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        self.dismiss(animated: true, completion: nil)
-    }
-    
-    func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage, editingInfo: [String : AnyObject]?) {
-        self.dismiss(animated: true, completion: nil)
-        self.sourceImage = image
-        self.processImage()
     }
     
     override func viewDidLoad() {
@@ -73,4 +63,22 @@ class DefaultRenderContextViewController: UIViewController,UIImagePickerControll
             self.imageView.image = self.processedImage
         }
     }
+}
+
+extension DefaultRenderContextViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        self.dismiss(animated: true, completion: nil)
+        
+        guard let image = info[UIImagePickerControllerOriginalImage] as? UIImage else {
+            return
+        }
+        self.sourceImage = image
+        self.processImage()
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
 }
